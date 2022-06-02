@@ -5,38 +5,6 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from celery_sql_beat_reloader.crontabtz import crontabtz
 
-"""
-
-CREATE TABLE celery_beat_schedule (
-    id SERIAL PRIMARY KEY,
-    created_date TIMESTAMPTZ DEFAULT NOW(),
-    updated_date TIMESTAMPTZ DEFAULT NOW(),
-    last_scheduled_date TIMESTAMPTZ,
-    active BOOLEAN DEFAULT TRUE,
-
-    name TEXT NOT NULL UNIQUE,
-    task TEXT NOT NULL,
-
-    args   JSONB DEFAULT '[]',
-    kwargs JSONB DEFAULT '{}',
-
-    type          TEXT NOT NULL DEFAULT 'cron',
-    seconds       INTEGER DEFAULT 60,
-    minute        TEXT DEFAULT '*',
-    hour          TEXT DEFAULT '*',
-    day_of_week   TEXT DEFAULT '*',
-    day_of_month  TEXT DEFAULT '*',
-    month_of_year TEXT DEFAULT '*',
-    timezone      TEXT DEFAULT 'America/Los_Angeles'
-);
-COMMENT ON COLUMN celery_beat_schedule.task    IS 'the import path of the task e.g. solv.celery.scheduled.foo.task';
-COMMENT ON COLUMN celery_beat_schedule.args    IS 'args will be unpacked as *args when executing the task';
-COMMENT ON COLUMN celery_beat_schedule.kwargs  IS 'kwargs will be unpacked as **kwargs when executing the task';
-COMMENT ON COLUMN celery_beat_schedule.type    IS 'type is either cron or periodic';
-COMMENT ON COLUMN celery_beat_schedule.seconds IS 'if type is periodic then the seconds column will be used for schedule';
-
-"""
-
 
 class Beat(declarative_base()):
     __tablename__ = "celery_beat_schedule"
